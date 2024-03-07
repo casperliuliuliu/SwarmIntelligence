@@ -1,5 +1,7 @@
 from visualization_function import process_visualization
 from evaluation import eval
+import random
+
 def hill_climbing(datas, labels, visualization=False):
     """
     Pseudo:
@@ -14,16 +16,20 @@ def hill_climbing(datas, labels, visualization=False):
             f1 = f2
     return s
     """
-    print('hello')
     index = 0
-    ss = datas[index]
+    lower_bound = -1
+    upper_bound = len(datas)
+
+    ss, index = initial_solution(datas)
 
     f1 = eval(ss, labels)
 
-    size = len(datas)
-    while index < size:
+    while index != -1:
 
-        vv = neighbor_selection(ss)
+        vv, index = HC_neighbor_selection(datas, labels, index, lower_bound, upper_bound, f1)
+
+        if index == -1:
+            break
 
         f2 = eval(vv, labels)
 
@@ -32,14 +38,38 @@ def hill_climbing(datas, labels, visualization=False):
             f1 = f2
             
         if visualization:
-            process_visualization(datas, labels, ss, f1, vv, f2)
-        index+=1
+            plt = process_visualization(datas, labels, ss, f1, vv, f2)
 
-    print('[Brute Force Done]')
-
+    print('[Hill Climbing Done]')
+    plt.show()
     return ss
 
-def neighbor_selection(ss):
+def initial_solution(datas):
+    random_index = random.randint(0, len(datas)-1)
+    return datas[random_index], random_index
+
+
+def HC_neighbor_selection(datas, labels, index, lower_bound, upper_bound, f1):
+    
+    if index+1 < upper_bound:
+        vv = datas[index+1]
+        f2 = eval(vv, labels)
+
+        if f2 > f1:
+            return datas[index+1], index+1
+    
+    if index-1 > lower_bound:
+        vv = datas[index-1]
+        f2 = eval(vv, labels)
+
+        if f2 > f1:
+            return datas[index-1], index-1
+    
+    return None, -1
+
+
+
+
     
 
 
