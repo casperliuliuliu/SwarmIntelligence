@@ -1,4 +1,5 @@
 from visualization_function import process_visualization
+from evaluation import eval
 def hill_climbing(datas, labels, visualization=False):
     """
     Pseudo:
@@ -14,31 +15,32 @@ def hill_climbing(datas, labels, visualization=False):
     return s
     """
     print('hello')
-#     index = 0
-#     ss = datas[index]
+    index = 0
+    ss = datas[index]
 
-#     f1 = eval(ss, labels)
+    f1 = eval(ss, labels)
 
-#     size = len(datas)
-#     while index < size:
+    size = len(datas)
+    while index < size:
 
-#         vv = datas[index]
+        vv = neighbor_selection(ss)
 
-#         f2 = eval(vv, labels)
+        f2 = eval(vv, labels)
 
-#         if f2 > f1:
-#             ss = vv
-#             f1 = f2
+        if f2 > f1:
+            ss = vv
+            f1 = f2
             
-#         if visualization:
-#             process_visualization(datas, labels, ss, f1, vv, f2)
-#         index+=1
+        if visualization:
+            process_visualization(datas, labels, ss, f1, vv, f2)
+        index+=1
 
-#     print('[Brute Force Done]')
+    print('[Brute Force Done]')
 
-#     return ss
+    return ss
+
+def neighbor_selection(ss):
+    
 
 
 
-# def eval(ss, labels):
-#     return labels[int(ss*10+60)]
