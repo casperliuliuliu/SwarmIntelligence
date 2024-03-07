@@ -9,7 +9,7 @@ def generating_data(x_values, noise=0):
     return y_values
 
 def test_hill_formula(x):
-    return -(x-2)*(x)*(x+5)*(x-5)*(x+6)*(x-8)+3000
+    return -(x-2)*(x)*(x+5)*(x-5)*(x+6)*(x-8)+3000 + 5000
 
 
 def plot_x_y(x_values, y_values, title='Function Plot', xlabel='x', ylabel='y'):
